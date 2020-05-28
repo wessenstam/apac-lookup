@@ -26,7 +26,7 @@ class LoginForm(FlaskForm):
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 credentials = ServiceAccountCredentials.from_json_keyfile_name('json/gts-gsheet-pandas-flask.json',scope)  # Change location as soon as it comes into prod
 gc = gspread.authorize(credentials)
-wks = gc.open("ECA-Athena - EMEA").sheet1  # get the Gsheet
+wks = gc.open("HPE-NTNX-Field day").sheet1  # get the Gsheet
 data = wks.get_all_values()
 headers = data.pop(0)
 # Drop all data in a dataframe
@@ -38,12 +38,12 @@ def update_df():
     scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
     credentials = ServiceAccountCredentials.from_json_keyfile_name('json/gts-gsheet-pandas-flask.json', scope)  # Change location as soon as it comes into prod
     gc = gspread.authorize(credentials)
-    wks = gc.open("ECA-Athena - EMEA").sheet1  # get the Gsheet
+    wks = gc.open("HPE-NTNX-Field day").sheet1  # get the Gsheet
     data = wks.get_all_values()
     headers = data.pop(0)
     # Drop all data in a dataframe
     df.update(pd.DataFrame(data, columns=headers))
-    return render_template('web_update.html', title='ECA - HPOC Cluster lookup')
+    return render_template('web_update.html', title='HP Nutanix Field Day - Cluster lookup')
 
 @app.route("/", methods=['GET', 'POST'])
 def show_form_data():
@@ -56,7 +56,7 @@ def show_form_data():
     if form.validate_on_submit():
         # Change the email to a list so we can lowercase and search Case insensitive in the DataFrame
         search_email = [form.email.data.lower()]
-        df_user_info = df[df['Email'].str.lower().isin(search_email)]
+        df_user_info = df[df['UUID'].str.lower().isin(search_email)]
         # Change the df into a dict so we can grab the data
         if str(df_user_info):
             user_info = df_user_info.to_dict('records')
@@ -90,7 +90,7 @@ def show_form_data():
                 error = {'message' : 'Unknown email address', 'email' : form.email.data }
 
     # Send the output to the webbrowser
-    return render_template('web_form.html', title='ECA Training - HPOC Cluster lookup', user=user_data, form=form, error=error)
+    return render_template('web_form.html', title='HP Nutanix Field Day - Cluster lookup', user=user_data, form=form, error=error)
 
 
 if __name__ == "main":

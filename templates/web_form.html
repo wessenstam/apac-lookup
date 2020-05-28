@@ -9,13 +9,13 @@
     <form class="form-horizontal" action="" method="post" novalidate>
         {{ form.hidden_tag() }}
         <p>
-            {{ form.email.label }} {{ form.email(size=32,value="") }}
+            {{ form.uuid.label }} {{ form.uuid(size=32,value="") }}
         </p>
         <p>{{ form.submit(class="btn btn-primary") }}</p>
     </form>
 
     {% if error %}
-    <H4>Email address {{ error.email }} has not been found in the database. Please try again</H4>
+    <H4>UUID {{ error.uuid }} has not been found in the database. Please try again</H4>
         {{ error.message }}
 
     {% else %}

@@ -19,7 +19,7 @@ app.config['SECRET_KEY'] = 'you-will-never-guess'
 
 # Geting the Forms ready to be used
 class LoginForm(FlaskForm):
-    email = StringField('Email Address', validators=[DataRequired()])
+    uuid = StringField('UUID', validators=[DataRequired()])
     submit = SubmitField('Find me...')
 
 # Grabbing the initial data from gsheet
@@ -55,7 +55,7 @@ def show_form_data():
     #
     if form.validate_on_submit():
         # Change the email to a list so we can lowercase and search Case insensitive in the DataFrame
-        search_email = [form.email.data.lower()]
+        search_email = [form.uuid.data.lower()]
         df_user_info = df[df['UUID'].str.lower().isin(search_email)]
         # Change the df into a dict so we can grab the data
         if str(df_user_info):
@@ -85,7 +85,7 @@ def show_form_data():
                              'frame_user': user_info[0]['Frame Username']
                              }
 
-                form.email.data=""
+                form.uuid.data=""
             except IndexError:
                 error = {'message' : 'Unknown email address', 'email' : form.email.data }
 

@@ -22,8 +22,6 @@ WORKDIR /
 
 ADD start.sh .
 
-VOLUME /json
-
-EXPOSE 5000
+VOLUME /json /code
 
 CMD ["sh", "start.sh"]

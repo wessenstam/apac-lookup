@@ -87,7 +87,7 @@ def show_form_data():
 
                 form.uuid.data=""
             except IndexError:
-                error = {'message' : 'Unknown email address', 'email' : form.email.data }
+                error = {'message' : 'Unknown UUID', 'uuid' : form.uuid.data }
 
     # Send the output to the webbrowser
     return render_template('web_form.html', title='HP Nutanix Field Day - Cluster lookup', user=user_data, form=form, error=error)

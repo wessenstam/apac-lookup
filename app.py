@@ -68,6 +68,7 @@ def show_form_data():
                              'pe_vip': user_info[0]['Prism Element VIP'],
                              'pc_vip': user_info[0]['Prism Central IP'],
                              'data_service_ip': user_info[0]['Data Services IP'],
+			     'vcenter_ip':user_info[0]['Vcenter IP address'],
                              'cvm1':user_info[0]['CVM 1'],
                              'cvm2': user_info[0]['CVM 2'],
                              'cvm3': user_info[0]['CVM 3'],
@@ -82,7 +83,7 @@ def show_form_data():
                              'dhcp_strt': user_info[0]['DHCP Start'],
                              'dhcp_end': user_info[0]['DHCP End'],
                              'move_vm': user_info[0]['Move VM'],
-                             'frame_user': user_info[0]['Frame Username']
+                             'frame_user': user_info[0]['FRAME VDI name']
                              }
 
                 form.uuid.data=""
